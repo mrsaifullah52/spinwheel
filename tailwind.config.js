@@ -4,6 +4,13 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    extend: {
+      backgroundImage:{
+        'hero': "url('/imgs/spinwheelbanner.jpg')",
+      }
+    },
+  },
+    variants: {
     extend: {},
   },
   plugins: [],

@@ -1,3 +1,20 @@
 @tailwind base;
 @tailwind components;
+.mycontainer {
+  @apply w-4/5 mx-auto;
+}
+
+.btn-primary {
+  @apply px-4 py-2 m-1 text-white bg-indigo-700 hover:bg-indigo-600 shadow-sm hover:shadow-lg rounded-md;
+}
+.btn-secondary {
+  @apply px-4 py-2 m-1 text-white bg-gray-700 hover:bg-gray-600 shadow-sm hover:shadow-lg rounded-md;
+}
+.input {
+  @apply w-full px-4 py-2 m-1 text-indigo-700 bg-gray-100 border-2 border-gray-300 rounded-md focus:outline-indigo-700 shadow-sm hover:shadow-md;
+}
+.input-label {
+  @apply m-1 text-base font-medium text-gray-600;
+}
+
 @tailwind utilities;
