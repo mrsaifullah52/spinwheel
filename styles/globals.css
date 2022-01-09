@@ -1,20 +1,25 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew:wght@200;500;800&display=swap");
+
 @tailwind base;
 @tailwind components;
 .mycontainer {
   @apply w-4/5 mx-auto;
 }
-
 .btn-primary {
-  @apply px-4 py-2 m-1 text-white bg-indigo-700 hover:bg-indigo-600 shadow-sm hover:shadow-lg rounded-md;
+  @apply px-4 py-2 m-1 text-white bg-primary hover:bg-secondary shadow-sm hover:shadow-lg rounded-md;
 }
 .btn-secondary {
   @apply px-4 py-2 m-1 text-white bg-gray-700 hover:bg-gray-600 shadow-sm hover:shadow-lg rounded-md;
 }
 .input {
-  @apply w-full px-4 py-2 m-1 text-indigo-700 bg-gray-100 border-2 border-gray-300 rounded-md focus:outline-indigo-700 shadow-sm hover:shadow-md;
+  @apply w-full px-4 py-2 m-1 text-[#ff6600] bg-gray-100 border-2 border-gray-300 rounded-md focus:outline-[#ff6600] shadow-sm hover:shadow-md;
 }
 .input-label {
   @apply m-1 text-base font-medium text-gray-600;
+}
+.triangle {
+  @apply transform z-0 hover:shadow-lg cursor-pointer rounded-lg w-24 p-2 md:w-40 h-[125px]
+   md:h-1/2 -translate-x-1/2 origin-bottom text-center left-20 md:left-24 absolute;
 }
 
 @tailwind utilities;

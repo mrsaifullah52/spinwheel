@@ -7,6 +7,10 @@ module.exports = {
     extend: {
       backgroundImage:{
         'hero': "url('/imgs/spinwheelbanner.jpg')",
+      },
+      backgroundColor:{
+        'primary':"#ff6600",
+        'secondary':"#fa8333fd"
       }
     },
   },
