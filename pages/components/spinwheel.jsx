@@ -1,21 +1,26 @@
-import { Formik, Form, Field, useFormik } from "formik";
+import { Formik, Form, Field } from "formik";
 import { useRef, useState, useEffect } from "react";
+import { getCookie } from "cookies-next";
 
 const Spinwheel = () => {
   const wheel = useRef(null);
   const userForm = useRef(null);
   const bank = useRef(null);
 
-  const [points, setPoints] = useState(2);
-
-  let num = Math.ceil(Math.random() * 10000);
+  const [points, setPoints] = useState(1);
+  let num = Math.random() * (16000 - 8000) + 8000;
   const spinwheel = () => {
     // setPoints((prev) => {
     // if (prev > 0) {
-    wheel.current.style.transform = `rotate(8900deg)`;
+
+    wheel.current.style.transform = `rotate(${num}deg)`;
+    num = Math.random() * (125 - 20) + 20;
     setTimeout(() => {
-      wheel.current.style.transform = `rotate(-0deg)`;
+      wheel.current.style.transform = `rotate(-${num}deg)`;
     }, 5000);
+
+    let num = Math.random() * (16000 - 8000) + 8000;
+
     // num += Math.ceil((Math.random() * 10000) / 2);
     //   return prev - 1;
     // } else {
@@ -25,22 +30,35 @@ const Spinwheel = () => {
     // });
   };
 
-  const [formVal, setFormVal] = useState({
-    name: "saifi",
-    city: "lahore",
-    phone: "456-78-899",
-    email: "saifi1@gmail.com",
-  });
+  useEffect(() => {
+    const email = getCookie("email");
+    //if user exist
+    if (email) {
+      userForm.current.style.display = "none";
+      bank.current.style.display = "block";
 
+      async () => {
+        const res = await fetch(`/api/user/${email}`);
+        setPoints(res.basic);
+      };
+    }
+  }, []);
+
+  // submit data
   const formSubmit = async (values) => {
-    // userForm.current.style.display = "none";
-    // bank.current.style.display = "block";
-
     const response = await fetch("/api/user", {
       method: "POST",
       body: JSON.stringify(values),
     });
-    console.log(response);
+    if (response.status == 201) {
+      userForm.current.style.display = "none";
+      bank.current.style.display = "block";
+    } else if (409) {
+      userForm.current.style.display = "none";
+      bank.current.style.display = "block";
+    } else {
+      console.log("error");
+    }
   };
 
   // wheel items list
@@ -69,7 +87,15 @@ const Spinwheel = () => {
         </p>
         <div className="flex flex-col lg:flex-row w-full mt-8 justify-center items-center">
           {/* userform */}
-          <Formik initialValues={formVal} onSubmit={formSubmit}>
+          <Formik
+            initialValues={{
+              name: "",
+              city: "",
+              phone: "",
+              email: "",
+            }}
+            onSubmit={formSubmit}
+          >
             <Form ref={userForm} className="w-full lg:w-1/2 lg:mt-16">
               <div className="flex flex-col md:flex-row justify-between">
                 <div className="flex flex-col w-full md:w-1/2 md:mr-1">
@@ -241,10 +267,10 @@ const LuckBank = ({ spin, points }) => {
 
 export default Spinwheel;
 
-// export async function getServerSideProps(){
+// export async function getServerSideProps() {
 //   // get the current environment
-//   let dev = process.env.NODE_ENV !== 'production';
+//   let dev = process.env.NODE_ENV !== "production";
 //   let { DEV_URL, PROD_URL } = process.env;
 
-//   const response = await fetch(`${dev ? DEV_URL : PROD_URL}/api/user/`)
+//   const response = await fetch(`${dev ? DEV_URL : PROD_URL}/api/user/`);
 // }

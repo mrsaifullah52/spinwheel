@@ -1,5 +1,5 @@
 import database from '../../../lib/database';
-import User from '../../../models/User';
+import Point from '../../../models/Point';
 
 export default async function handler (req, res) {
   await database();
@@ -8,7 +8,7 @@ export default async function handler (req, res) {
   switch(req.method){
     case 'GET':{
       try {
-        const response= await User.findOne({email});
+        const response= await Point.findOne({email});
         return res.json(response);
       } catch (error) {
         return res.json(error)

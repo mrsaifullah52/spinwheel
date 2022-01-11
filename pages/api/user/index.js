@@ -1,5 +1,7 @@
 import database from '../../../lib/database';
 import User from '../../../models/User';
+import Point from '../../../models/Point';
+import { setCookies } from 'cookies-next';
 
 export default async function handler (req, res) {
   await database();
@@ -10,15 +12,28 @@ export default async function handler (req, res) {
       return res.send(response);
     }
     case 'POST':{
+      const {name,city,phone,email}=JSON.parse(req.body);
       try {
-        const {name,city,phone,email}=JSON.parse(req.body);
         const userData= new User({name, city, phone, email})
+        const userPoints= new Point({email,basic:1});
+        await userPoints.save();
         const response = await userData.save();
-        console.log(response);
+
+        setCookies("email",email,{ req, res });
+        setCookies("phone",phone,{ req, res });
         return res.status(201).send(response)
       } catch (error) {
+
+        const response=await User.findOne({email})
+        if(response.email){
+          setCookies("email",email,{ req, res });
+          setCookies("phone",phone,{ req, res });
+
+          return res.status(409).send(response)
+        }
+
         console.log(error)
-        return res.status(409).json({"message":"failed to save"})
+        return res.status(401).json({"message":"failed to save"})
       }
     }
     case 'PUT':{

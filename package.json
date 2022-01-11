@@ -8,6 +8,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "cookies-next": "^2.0.3",
     "dotenv": "^10.0.0",
     "formik": "^2.2.9",
     "mongoose": "^6.1.6",
