@@ -72,7 +72,7 @@ const Socialhandles = () => {
       <div className="mycontainer">
         <div className="py-16">
           <p className="text-center">
-            Earn More Chances after Completion of below tasks.
+            הרווח יותר סיכויים לאחר השלמת המשימות הבאות
           </p>
           <ul role="list" className="p-6 divide-y divide-gray-200">
             {items.map((val, i) => {

@@ -9,7 +9,7 @@ const Spinwheel = () => {
 
   const [points, setPoints] = useState(5);
   const spinwheel = () => {
-    let num = Math.random() * (90 - 20) + 20;
+    let num = Math.random() * (110 - 20) + 20;
     setPoints((prev) => {
       if (prev > 0) {
         wheel.current.style.transform = `rotate(16000deg)`;
@@ -33,7 +33,8 @@ const Spinwheel = () => {
       bank.current.style.display = "block";
       async () => {
         const res = await fetch(`/api/user/${email}`);
-        setPoints(res.basic);
+        console.log(res.basic);
+        // setPoints(res.basic);
       };
     }
   }, []);
@@ -92,7 +93,7 @@ const Spinwheel = () => {
           >
             <Form ref={userForm} className="w-full lg:w-1/2 lg:mt-16">
               <div className="flex flex-col md:flex-row justify-between">
-                <div className="flex flex-col w-full md:w-1/2 md:mr-1">
+                <div className="flex flex-col w-full md:w-1/2 md:ml-1">
                   <label htmlFor="name" className="input-label">
                     Your Full Name:
                   </label>
@@ -105,7 +106,7 @@ const Spinwheel = () => {
                     required={true}
                   />
                 </div>
-                <div className="flex flex-col w-full md:w-1/2 md:ml-1">
+                <div className="flex flex-col w-full md:w-1/2 md:mr-1">
                   <label htmlFor="city" className="input-label">
                     Your City:
                   </label>
@@ -121,7 +122,7 @@ const Spinwheel = () => {
               </div>
 
               <div className="flex flex-col md:flex-row justify-between">
-                <div className="flex flex-col w-full md:w-1/2 md:mr-1">
+                <div className="flex flex-col w-full md:w-1/2 md:ml-1">
                   <label htmlFor="phone" className="input-label">
                     Your Phone Number:
                   </label>
@@ -135,7 +136,7 @@ const Spinwheel = () => {
                     pattern="[0-0]{1}[5-5]{1}-[0-9]{8}"
                   />
                 </div>
-                <div className="flex flex-col w-full md:w-1/2 md:ml-1">
+                <div className="flex flex-col w-full md:w-1/2 md:mr-1">
                   <label htmlFor="email" className="input-label">
                     Your Email Address:
                   </label>
@@ -203,8 +204,8 @@ const Spinwheel = () => {
             </div>
             {points <= 0 ? (
               <p className="text-center mt-4">
-                You ran out of Spin trials, consider below options to get more
-                chance.
+                נגמרו לך ניסויי ספין, שקול את האפשרויות הבאות כדי לקבל יותר
+                סיכוי.
               </p>
             ) : (
               ""
