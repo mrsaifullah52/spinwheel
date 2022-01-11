@@ -1,5 +1,5 @@
-import database from '../../middleware/database';
-import User from '../../model/user';
+import database from '../../../lib/database';
+import User from '../../../models/User';
 
 export default async function handler (req, res) {
   await database();
