@@ -1,5 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew:wght@200;500;800&display=swap");
 
+body {
+  direction: rtl;
+  unicode-bidi: bidi-override;
+}
+
 @tailwind base;
 @tailwind components;
 .mycontainer {

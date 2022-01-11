@@ -7,27 +7,22 @@ const Spinwheel = () => {
   const userForm = useRef(null);
   const bank = useRef(null);
 
-  const [points, setPoints] = useState(1);
-  let num = Math.random() * (16000 - 8000) + 8000;
+  const [points, setPoints] = useState(5);
   const spinwheel = () => {
-    // setPoints((prev) => {
-    // if (prev > 0) {
+    let num = Math.random() * (90 - 20) + 20;
+    setPoints((prev) => {
+      if (prev > 0) {
+        wheel.current.style.transform = `rotate(16000deg)`;
+        setTimeout(() => {
+          wheel.current.style.transform = `rotate(-${num}deg)`;
+        }, 5000);
 
-    wheel.current.style.transform = `rotate(${num}deg)`;
-    num = Math.random() * (125 - 20) + 20;
-    setTimeout(() => {
-      wheel.current.style.transform = `rotate(-${num}deg)`;
-    }, 5000);
-
-    let num = Math.random() * (16000 - 8000) + 8000;
-
-    // num += Math.ceil((Math.random() * 10000) / 2);
-    //   return prev - 1;
-    // } else {
-    //   bank.current.style.display = "none";
-    //   return 0;
-    // }
-    // });
+        return prev - 1;
+      } else {
+        bank.current.style.display = "none";
+        return 0;
+      }
+    });
   };
 
   useEffect(() => {
@@ -36,7 +31,6 @@ const Spinwheel = () => {
     if (email) {
       userForm.current.style.display = "none";
       bank.current.style.display = "block";
-
       async () => {
         const res = await fetch(`/api/user/${email}`);
         setPoints(res.basic);
@@ -100,26 +94,26 @@ const Spinwheel = () => {
               <div className="flex flex-col md:flex-row justify-between">
                 <div className="flex flex-col w-full md:w-1/2 md:mr-1">
                   <label htmlFor="name" className="input-label">
-                    Your Complete name:
+                    Your Full Name:
                   </label>
                   <Field
                     type="text"
                     name="name"
                     id="name"
-                    placeholder="Your Complete Name"
+                    placeholder="John Doe"
                     className="input"
                     required={true}
                   />
                 </div>
                 <div className="flex flex-col w-full md:w-1/2 md:ml-1">
                   <label htmlFor="city" className="input-label">
-                    Your City
+                    Your City:
                   </label>
                   <Field
                     type="text"
                     name="city"
                     id="city"
-                    placeholder="Your City"
+                    placeholder="Hadera"
                     className="input"
                     required={true}
                   />
@@ -135,10 +129,10 @@ const Spinwheel = () => {
                     type="tel"
                     name="phone"
                     id="phone"
-                    placeholder="Your Phone Number"
+                    placeholder="05-65840214"
                     className="input"
                     required={true}
-                    pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
+                    pattern="[0-0]{1}[5-5]{1}-[0-9]{8}"
                   />
                 </div>
                 <div className="flex flex-col w-full md:w-1/2 md:ml-1">
@@ -149,7 +143,7 @@ const Spinwheel = () => {
                     type="email"
                     name="email"
                     id="email"
-                    placeholder="Your Email Addres"
+                    placeholder="john@example.com"
                     className="input"
                     required={true}
                   />
@@ -166,6 +160,7 @@ const Spinwheel = () => {
               </div>
             </Form>
           </Formik>
+
           {/* spinwheel */}
           <div className="w-full  my-4 lg:w-1/2 lg:ml-4 overflow-hidden relative p-2">
             <div
@@ -241,7 +236,7 @@ const Wheel = ({ props }) => {
 const LuckBank = ({ spin, points }) => {
   return (
     <>
-      <div className="w-64 mx-auto mt-4 rounded-md overflow-hidden">
+      <div className="w-60 md:w-64 mx-auto mt-4 rounded-md overflow-hidden">
         <div className="bg-white p-2">
           <h3 className="text-[#ff6600] font-semibold text-lg text-center">
             לסובב את הונו
@@ -256,7 +251,7 @@ const LuckBank = ({ spin, points }) => {
           </p>
         </div>
         <div className="bg-white p-2">
-          <button className="btn-primary w-full" onClick={spin}>
+          <button className="btn-primary w-56 mx-auto" onClick={spin}>
             סיבוב
           </button>
         </div>
