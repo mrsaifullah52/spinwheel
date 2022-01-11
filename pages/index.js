@@ -1,4 +1,6 @@
+import Footer from "./components/Footer";
 import Header from "./components/header";
+import Socialhandles from "./components/Socialhandles";
 import Spinwheel from "./components/spinwheel";
 
 const Home = ()=> {
@@ -6,6 +8,8 @@ const Home = ()=> {
     <>
       <Header/>
       <Spinwheel/>
+      <Socialhandles/>
+      <Footer/>
     </>
   )
 }

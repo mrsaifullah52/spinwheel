@@ -1,5 +1,5 @@
 import { Formik, Form, Field, useFormik } from "formik";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 
 const Spinwheel = () => {
   const wheel = useRef(null);
@@ -10,44 +10,52 @@ const Spinwheel = () => {
 
   let num = Math.ceil(Math.random() * 10000);
   const spinwheel = () => {
-    setPoints((prev) => {
-      if (prev > 0) {
-        wheel.current.style.transform = `rotate(${num}deg)`;
-        num += Math.ceil((Math.random() * 10000) / 2);
-        return prev - 1;
-      } else {
-        alert("נגמרו לך הספינים!!");
-        return 0;
-      }
-    });
+    // setPoints((prev) => {
+    // if (prev > 0) {
+    wheel.current.style.transform = `rotate(8900deg)`;
+    setTimeout(() => {
+      wheel.current.style.transform = `rotate(-0deg)`;
+    }, 5000);
+    // num += Math.ceil((Math.random() * 10000) / 2);
+    //   return prev - 1;
+    // } else {
+    //   bank.current.style.display = "none";
+    //   return 0;
+    // }
+    // });
   };
 
+  const [formVal, setFormVal] = useState({
+    name: "",
+    city: "",
+    phone: "",
+    email: "",
+  });
+
   const formSubmit = async (values) => {
-    userForm.current.style.display = "none";
-    bank.current.style.display = "block";
-    // await new Promise((resolve) => setTimeout(resolve, 500));
-    // alert(JSON.stringify(values, null, 2));
+    // userForm.current.style.display = "none";
+    // bank.current.style.display = "block";
+
+    const response = await fetch("/api/user", {
+      method: "POST",
+      body: JSON.stringify(values),
+    });
+    console.log(response);
   };
 
   // wheel items list
   const wheellist = [
-    { text: "חמישה אחוזים", deg: "45", col: "bg-orange-300" },
-    { text: "עשר אחוז", deg: "90", col: "bg-orange-400" },
-    { text: "עשרים אחוז", deg: "135", col: "bg-orange-500" },
-    { text: "ארבעים אחוז", deg: "180", col: "bg-orange-200" },
-    { text: "שישים אחוזים", deg: "225", col: "bg-orange-300" },
-    { text: "שמונים אחוז", deg: "270", col: "bg-orange-400" },
-    { text: "מאה אחוז", deg: "315", col: "bg-orange-500" },
+    { text: "5%", deg: "45", col: "bg-orange-300" },
+    { text: "10%", deg: "90", col: "bg-orange-400" },
+    { text: "20%", deg: "135", col: "bg-orange-500" },
+    { text: "40%", deg: "180", col: "bg-orange-200" },
+    { text: "50%", deg: "225", col: "bg-orange-300" },
+    { text: "70%", deg: "270", col: "bg-orange-400" },
+    { text: "100%", deg: "315", col: "bg-orange-500" },
   ];
 
   return (
-    <section
-      style={{
-        backgroundImage:
-          "linear-gradient(rgba(253, 133, 0, 0.35), rgba(139, 92, 246, 0.6)),url(imgs/animated.svg)",
-      }}
-      className="py-16 bg-cover bg-no-repeat"
-    >
+    <section className="bg-gray-100 py-16 bg-cover bg-no-repeat">
       <div className="mycontainer">
         <h2
           className="text-center font-extrabold text-5xl  bg-clip-text text-transparent
@@ -61,56 +69,73 @@ const Spinwheel = () => {
         </p>
         <div className="flex flex-col lg:flex-row w-full mt-8 justify-center items-center">
           {/* userform */}
-          <Formik
-            initialValues={{ fname: "", lname: "", email: "" }}
-            onSubmit={formSubmit}
-          >
+          <Formik initialValues={formVal} onSubmit={formSubmit}>
             <Form ref={userForm} className="w-full lg:w-1/2 lg:mt-16">
               <div className="flex flex-col md:flex-row justify-between">
                 <div className="flex flex-col w-full md:w-1/2 md:mr-1">
-                  <label htmlFor="fname" className="input-label">
-                    השם הפרטי שלך:
+                  <label htmlFor="name" className="input-label">
+                    Your Complete name:
                   </label>
                   <Field
                     type="text"
-                    name="fname"
-                    id="fname"
-                    placeholder="ג'ון"
+                    name="name"
+                    id="name"
+                    placeholder="Your Complete Name"
                     className="input"
+                    required={true}
                   />
                 </div>
                 <div className="flex flex-col w-full md:w-1/2 md:ml-1">
-                  <label htmlFor="lname" className="input-label">
-                    שם משפחתך:
+                  <label htmlFor="city" className="input-label">
+                    Your City
                   </label>
                   <Field
                     type="text"
-                    name="lname"
-                    id="lname"
-                    placeholder="צְבִיָה"
+                    name="city"
+                    id="city"
+                    placeholder="Your City"
                     className="input"
+                    required={true}
                   />
                 </div>
               </div>
-              <div className="flex flex-col">
-                <label htmlFor="email" className="input-label">
-                  כתובת הדוא"ל שלך:
-                </label>
-                <Field
-                  type="email"
-                  name="email"
-                  id="email"
-                  placeholder="ג'ון@דוגמא.עם"
-                  className="input"
-                />
+
+              <div className="flex flex-col md:flex-row justify-between">
+                <div className="flex flex-col w-full md:w-1/2 md:mr-1">
+                  <label htmlFor="phone" className="input-label">
+                    Your Phone Number:
+                  </label>
+                  <Field
+                    type="tel"
+                    name="phone"
+                    id="phone"
+                    placeholder="Your Phone Number"
+                    className="input"
+                    required={true}
+                    pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
+                  />
+                </div>
+                <div className="flex flex-col w-full md:w-1/2 md:ml-1">
+                  <label htmlFor="email" className="input-label">
+                    Your Email Address:
+                  </label>
+                  <Field
+                    type="email"
+                    name="email"
+                    id="email"
+                    placeholder="Your Email Addres"
+                    className="input"
+                    required={true}
+                  />
+                </div>
               </div>
 
               <div className="flex flex-row mt-2">
                 <button type="reset" className="btn-secondary">
-                  אִתחוּל
+                  Clear
                 </button>
                 <button type="submit" className="btn-primary">
-                  סובב קרוסלה
+                  Submit
                 </button>
               </div>
             </Form>
@@ -128,7 +153,7 @@ const Spinwheel = () => {
             <div
               ref={wheel}
               className="overflow-hidden relative w-[270px] h-[270px] md:w-[380px] md:h-[380px]
-              border-[15px] rounded-full bg-white outline outline-2 outline-[#ff6600]
+              border-[15px] border-white rounded-full bg-white outline outline-2 outline-[#ff6600]
               shadow-inner"
               style={{
                 transition: "5s",
@@ -141,18 +166,28 @@ const Spinwheel = () => {
                   clipPath: "polygon(100% 0, 50% 100%, 0 0)",
                 }}
               >
-                אחוז אחד
+                0%
               </div>
               {wheellist.map((val, i) => {
                 return <Wheel props={{ val }} key={i} />;
               })}
 
-              <div className="w-full h-full border-2 rounded-full border-dashed border-red-500 z-10 absolute"></div>
+              <div className="w-12 h-12 bg-white border-2 rounded-full border-dashed border-red-500 z-30 absolute left-[50%] top-[50%] transform -translate-x-1/2 -translate-y-1/2"></div>
+
+              <div className="w-full h-full border-2 rounded-full border-dashed border-red-500 z-10 absolute "></div>
             </div>
 
             <div ref={bank} className="hidden">
               <LuckBank spin={spinwheel} points={points} />
             </div>
+            {points <= 0 ? (
+              <p className="text-center mt-4">
+                You ran out of Spin trials, consider below options to get more
+                chance.
+              </p>
+            ) : (
+              ""
+            )}
           </div>
         </div>
       </div>
@@ -188,7 +223,7 @@ const LuckBank = ({ spin, points }) => {
         </div>
         <div className="bg-primary py-2">
           <h3 className="text-white font-semibold text-lg text-center">
-            נקודות שנותרו:
+            הגבול שנותר:
           </h3>
           <p className="text-white font-semibold text-lg text-center">
             {points}
@@ -205,3 +240,11 @@ const LuckBank = ({ spin, points }) => {
 };
 
 export default Spinwheel;
+
+// export async function getServerSideProps(){
+//   // get the current environment
+//   let dev = process.env.NODE_ENV !== 'production';
+//   let { DEV_URL, PROD_URL } = process.env;
+
+//   const response = await fetch(`${dev ? DEV_URL : PROD_URL}/api/user/`)
+// }
