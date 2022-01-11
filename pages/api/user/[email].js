@@ -1,14 +1,18 @@
-import clientPromise from '../../middleware/database';
+import database from '../../middleware/database';
+import User from '../../model/user';
 
 export default async function handler (req, res) {
+  await database();
   const {email} = req.query;
-  const client = await clientPromise
-  const db = client.db(process.env.MONGODB_DB).collection("user");
 
   switch(req.method){
     case 'GET':{
-      const response = await db.findOne({email})
-      return res.json(response)
+      try {
+        const response= await User.findOne({email});
+        return res.json(response);
+      } catch (error) {
+        return res.json(error)
+      }
     }
     case 'POST':{
       return res.send(email)
@@ -20,8 +24,4 @@ export default async function handler (req, res) {
       return res.send(email)
     }
   }
-
-
-  // const userdb = await db.collection('user').find({}).toArray();
-  // res.json(userdb)
 }

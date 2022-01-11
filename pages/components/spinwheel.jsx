@@ -26,10 +26,10 @@ const Spinwheel = () => {
   };
 
   const [formVal, setFormVal] = useState({
-    name: "",
-    city: "",
-    phone: "",
-    email: "",
+    name: "saifi",
+    city: "lahore",
+    phone: "456-78-899",
+    email: "saifi1@gmail.com",
   });
 
   const formSubmit = async (values) => {
