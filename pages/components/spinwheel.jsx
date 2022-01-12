@@ -42,8 +42,8 @@ const Spinwheel = () => {
       wheel.current.style.display = "block";
       async () => {
         const res = await fetch(`/api/user/${email}`);
-        console.log(res.basic);
-        setPoints(res.basic);
+        console.log(res);
+        setPoints(res);
       };
     }
   }, []);
