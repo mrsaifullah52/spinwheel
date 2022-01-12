@@ -95,7 +95,7 @@ const Spinwheel = () => {
               <div className="flex flex-col md:flex-row justify-between">
                 <div className="flex flex-col w-full md:w-1/2 md:ml-1">
                   <label htmlFor="name" className="input-label">
-                    Your Full Name:
+                    שם מלא:
                   </label>
                   <Field
                     type="text"
@@ -108,7 +108,7 @@ const Spinwheel = () => {
                 </div>
                 <div className="flex flex-col w-full md:w-1/2 md:mr-1">
                   <label htmlFor="city" className="input-label">
-                    Your City:
+                    ישוב:
                   </label>
                   <Field
                     type="text"
@@ -124,7 +124,7 @@ const Spinwheel = () => {
               <div className="flex flex-col md:flex-row justify-between">
                 <div className="flex flex-col w-full md:w-1/2 md:ml-1">
                   <label htmlFor="phone" className="input-label">
-                    Your Phone Number:
+                    טלפון:
                   </label>
                   <Field
                     type="tel"
@@ -136,9 +136,10 @@ const Spinwheel = () => {
                     pattern="[0-0]{1}[5-5]{1}-[0-9]{8}"
                   />
                 </div>
+
                 <div className="flex flex-col w-full md:w-1/2 md:mr-1">
                   <label htmlFor="email" className="input-label">
-                    Your Email Address:
+                    דואר אלקטרוני:
                   </label>
                   <Field
                     type="email"
@@ -153,10 +154,10 @@ const Spinwheel = () => {
 
               <div className="flex flex-row mt-2">
                 <button type="reset" className="btn-secondary">
-                  Clear
+                  נקה טופס
                 </button>
                 <button type="submit" className="btn-primary">
-                  Submit
+                  שלח והתחל משחק
                 </button>
               </div>
             </Form>

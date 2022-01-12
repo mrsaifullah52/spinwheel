@@ -3,7 +3,7 @@ const Footer = () => {
     <footer className="bg-primary">
       <div className="mycontainer">
         <div className="py-8 px-4 text-white">
-          <p className="text-center flex flex-col md:flex-row">
+          <p className="text-center flex flex-col md:flex-row items-center justify-center">
             <span>
               <b>משרד:&nbsp;</b>
               <a
@@ -13,19 +13,21 @@ const Footer = () => {
                 03-6500031
               </a>
             </span>
-            &nbsp;|&nbsp;
+
             <span>
+              &nbsp;|&nbsp;
               <a
                 href="https://www.kolot-studios.com"
                 target="_blank"
-                className="underline hover:bg-secondary"
+                className="underline hover:bg-secondary font-bold"
                 rel="noreferrer"
               >
                 www.kolot-studios.com
               </a>
             </span>
-            &nbsp; | &nbsp;
+
             <span>
+              &nbsp; | &nbsp;
               <b>דואר אלקטרוני: &nbsp;</b>
               <a
                 className="underline hover:bg-secondary"
