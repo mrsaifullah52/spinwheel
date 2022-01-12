@@ -1,6 +1,8 @@
 import { Formik, Form, Field } from "formik";
 import { useRef, useState, useEffect } from "react";
 import { getCookie } from "cookies-next";
+import Image from "next/image";
+import headline from "../../public/imgs/headline.png";
 
 const Spinwheel = () => {
   const wheel = useRef(null);
@@ -68,18 +70,8 @@ const Spinwheel = () => {
   ];
 
   return (
-    <section className="bg-gray-100 py-16 bg-cover bg-no-repeat">
+    <section className="py-8 md:py-16 bg-cover bg-no-repeat">
       <div className="mycontainer">
-        <h2
-          className="text-center font-extrabold text-5xl  bg-clip-text text-transparent
-           bg-gradient-to-r from-pink-400 to-[#ff6600]"
-        >
-          קרוסלת המזל
-        </h2>
-        <p className="text-center text-sm font-medium">
-          סובבו את <span className="text-[#ff6600]">הקרוסלה</span> ובדקו אם יש
-          לכם מזל
-        </p>
         <div className="flex flex-col lg:flex-row w-full mt-8 justify-center items-center">
           {/* userform */}
           <Formik
@@ -91,7 +83,15 @@ const Spinwheel = () => {
             }}
             onSubmit={formSubmit}
           >
-            <Form ref={userForm} className="w-full lg:w-1/2 lg:mt-16">
+            <Form ref={userForm} className="w-full lg:w-1/2">
+              <div className="w-[250px] md:w-[350px] overflow-hidden mx-auto ">
+                <Image
+                  src={headline}
+                  className="w-full h-full inline-block"
+                  alt="headline"
+                />
+              </div>
+
               <div className="flex flex-col md:flex-row justify-between">
                 <div className="flex flex-col w-full md:w-1/2 md:ml-1">
                   <label htmlFor="name" className="input-label">
@@ -130,7 +130,7 @@ const Spinwheel = () => {
                     type="tel"
                     name="phone"
                     id="phone"
-                    placeholder="05-65840214"
+                    placeholder="03-6500031"
                     className="input"
                     required={true}
                     pattern="[0-0]{1}[5-5]{1}-[0-9]{8}"
@@ -237,8 +237,8 @@ const Wheel = ({ props }) => {
 const LuckBank = ({ spin, points }) => {
   return (
     <>
-      <div className="w-60 md:w-64 mx-auto mt-4 rounded-md overflow-hidden">
-        <div className="bg-white p-2">
+      <div className="bg-gray-50 w-60 md:w-64 mx-auto mt-4 rounded-md overflow-hidden">
+        <div className="bg-gray-50 p-2">
           <h3 className="text-[#ff6600] font-semibold text-lg text-center">
             לסובב את הונו
           </h3>
@@ -251,7 +251,7 @@ const LuckBank = ({ spin, points }) => {
             {points}
           </p>
         </div>
-        <div className="bg-white p-2">
+        <div className="bg-gray-50 p-2">
           <button className="btn-primary w-56 mx-auto" onClick={spin}>
             סיבוב
           </button>
