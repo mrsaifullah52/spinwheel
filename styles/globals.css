@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew:wght@200;500;800&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew:wght@200;500;800&display=swap"); */
 
 body {
   direction: rtl;
@@ -24,7 +24,7 @@ body {
 }
 .triangle {
   @apply transform z-0 hover:shadow-lg cursor-pointer rounded-lg w-24 p-2 md:w-40 h-[125px]
-   md:h-1/2 -translate-x-1/2 origin-bottom text-center left-20 md:left-24 absolute;
+   md:h-1/2 -translate-x-1/2 origin-bottom flex items-center justify-end left-20 md:left-24 absolute;
 }
 
 @tailwind utilities;

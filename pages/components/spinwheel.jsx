@@ -3,9 +3,13 @@ import { useRef, useState, useEffect } from "react";
 import { getCookie } from "cookies-next";
 import Image from "next/image";
 import headline from "../../public/imgs/headline.png";
+import logo from "../../public/imgs/kolot_logo.png";
+import wheelimg from "../../public/imgs/wheel.png";
 
 const Spinwheel = () => {
   const wheel = useRef(null);
+  const innerWheel = useRef(null);
+  const wheelImg = useRef(null);
   const userForm = useRef(null);
   const bank = useRef(null);
 
@@ -14,9 +18,9 @@ const Spinwheel = () => {
     let num = Math.random() * (110 - 20) + 20;
     setPoints((prev) => {
       if (prev > 0) {
-        wheel.current.style.transform = `rotate(16000deg)`;
+        innerWheel.current.style.transform = `rotate(16000deg)`;
         setTimeout(() => {
-          wheel.current.style.transform = `rotate(-${num}deg)`;
+          innerWheel.current.style.transform = `rotate(-${num}deg)`;
         }, 5000);
 
         return prev - 1;
@@ -32,11 +36,14 @@ const Spinwheel = () => {
     //if user exist
     if (email) {
       userForm.current.style.display = "none";
+      wheelImg.current.style.display = "none";
+
       bank.current.style.display = "block";
+      wheel.current.style.display = "block";
       async () => {
         const res = await fetch(`/api/user/${email}`);
         console.log(res.basic);
-        // setPoints(res.basic);
+        setPoints(res.basic);
       };
     }
   }, []);
@@ -47,11 +54,10 @@ const Spinwheel = () => {
       method: "POST",
       body: JSON.stringify(values),
     });
-    if (response.status == 201) {
+    if (response.status == 201 || response.status == 409) {
       userForm.current.style.display = "none";
-      bank.current.style.display = "block";
-    } else if (409) {
-      userForm.current.style.display = "none";
+      wheelImg.current.style.display = "none";
+      wheel.current.style.display = "block";
       bank.current.style.display = "block";
     } else {
       console.log("error");
@@ -60,13 +66,13 @@ const Spinwheel = () => {
 
   // wheel items list
   const wheellist = [
-    { text: "5%", deg: "45", col: "bg-orange-300" },
-    { text: "10%", deg: "90", col: "bg-orange-400" },
-    { text: "20%", deg: "135", col: "bg-orange-500" },
-    { text: "40%", deg: "180", col: "bg-orange-200" },
-    { text: "50%", deg: "225", col: "bg-orange-300" },
-    { text: "70%", deg: "270", col: "bg-orange-400" },
-    { text: "100%", deg: "315", col: "bg-orange-500" },
+    { text: "5%", deg: "45", col: "bg-orange-300", txt: 16 },
+    { text: "10%", deg: "90", col: "bg-orange-400", txt: 20 },
+    { text: "20%", deg: "135", col: "bg-orange-500", txt: 24 },
+    { text: "40%", deg: "180", col: "bg-orange-200", txt: 28 },
+    { text: "50%", deg: "225", col: "bg-orange-300", txt: 32 },
+    { text: "70%", deg: "270", col: "bg-orange-400", txt: 36 },
+    { text: "100%", deg: "315", col: "bg-orange-500", txt: 40 },
   ];
 
   return (
@@ -163,20 +169,24 @@ const Spinwheel = () => {
             </Form>
           </Formik>
 
+          {/* image */}
+          <div className="" ref={wheelImg}>
+            <Image src={wheelimg} alt="spinwheel" />
+          </div>
+
           {/* spinwheel */}
-          <div className="w-full  my-4 lg:w-1/2 lg:ml-4 overflow-hidden relative p-2">
-            <div
-              className="w-8 h-12 bg-primary z-20 absolute left-[50%] transform -translate-x-1/2 shadow-xl"
-              style={{
-                clipPath: "polygon(100% 0, 50% 100%, 0 0)",
-              }}
-            >
-              <div className="absolute bg-white w-2 h-2 left-1/2 transform -translate-x-1/2 rounded-full"></div>
+          <div
+            ref={wheel}
+            className="w-full  my-4 lg:w-1/2 lg:ml-4 relative p-2 hidden overflow-hidden"
+          >
+            <div className="w-[120px] h-[120px] md:w-[190px] md:h-[190px] z-20 absolute left-[50%] top-[20%] transform -translate-x-1/2 -translate-y-[20%]">
+              <Image src={logo} alt="logo" className="w-full h-full" />
             </div>
             <div
-              ref={wheel}
-              className="overflow-hidden relative w-[270px] h-[270px] md:w-[380px] md:h-[380px]
-              border-[15px] border-white rounded-full bg-white outline outline-2 outline-[#ff6600]
+              ref={innerWheel}
+              className="relative w-[270px] h-[270px] md:w-[380px] md:h-[380px]
+              overflow-hidden 
+              border-[15px] border-[#ff6600] rounded-full bg-white outline outline-2 outline-orange-800
               shadow-inner"
               style={{
                 transition: "5s",
@@ -184,20 +194,19 @@ const Spinwheel = () => {
               }}
             >
               <div
-                className={`bg-orange-200 triangle left-32 md:left-44`}
+                className={`bg-orange-200 triangle left-32 md:left-44 text-white font-bold`}
                 style={{
                   clipPath: "polygon(100% 0, 50% 100%, 0 0)",
+                  writingMode: "vertical-lr",
                 }}
               >
-                0%
+                0% הנחה
               </div>
               {wheellist.map((val, i) => {
                 return <Wheel props={{ val }} key={i} />;
               })}
 
-              <div className="w-12 h-12 bg-white border-2 rounded-full border-dashed border-red-500 z-30 absolute left-[50%] top-[50%] transform -translate-x-1/2 -translate-y-1/2"></div>
-
-              <div className="w-full h-full border-2 rounded-full border-dashed border-red-500 z-10 absolute "></div>
+              <div className="w-full h-full border-2 rounded-full border-dashed border-orange-800 z-10 absolute "></div>
             </div>
 
             <div ref={bank} className="hidden">
@@ -219,17 +228,18 @@ const Spinwheel = () => {
 };
 
 const Wheel = ({ props }) => {
-  const { text, deg, col } = props.val;
+  const { text, deg, col, txt } = props.val;
   return (
     <>
       <div
-        className={`${col} triangle`}
+        className={`${col} triangle text-white font-bold text-sm md:text-base`}
         style={{
           transform: `rotate(${deg}deg)`,
           clipPath: "polygon(100% 0, 50% 100%, 0 0)",
+          writingMode: "vertical-rl",
         }}
       >
-        {text}
+        {text} הנחה
       </div>
     </>
   );
@@ -238,7 +248,7 @@ const Wheel = ({ props }) => {
 const LuckBank = ({ spin, points }) => {
   return (
     <>
-      <div className="bg-gray-50 w-60 md:w-64 mx-auto mt-4 rounded-md overflow-hidden">
+      <div className="bg-gray-50 w-60 md:w-64 mx-auto mt-4 rounded-md overflow-hidden border-[#ff6600] border-2">
         <div className="bg-gray-50 p-2">
           <h3 className="text-[#ff6600] font-semibold text-lg text-center">
             לסובב את הונו
@@ -263,11 +273,3 @@ const LuckBank = ({ spin, points }) => {
 };
 
 export default Spinwheel;
-
-// export async function getServerSideProps() {
-//   // get the current environment
-//   let dev = process.env.NODE_ENV !== "production";
-//   let { DEV_URL, PROD_URL } = process.env;
-
-//   const response = await fetch(`${dev ? DEV_URL : PROD_URL}/api/user/`);
-// }

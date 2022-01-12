@@ -9,24 +9,47 @@ const Socialhandles = () => {
     tiktok: 0,
   });
 
+  // const items = [
+  //   {
+  //     text: "שתפו את האתר שלנו עם חבר בוואטסאפ (Share our Website with a friend on Whatsapp)",
+  //     sid: "1",
+  //     count: social.twitter,
+  //   },
+  //   {
+  //     text: "עקבו אחרינו באינסטגרם (Follow us on Instagram)",
+  //     sid: "2",
+  //     count: social.instagram,
+  //   },
+  //   {
+  //     text: "תנו לנו לייק בעמוד הפייסבוק (Like our Facebook page)",
+  //     sid: "3",
+  //     count: social.facebook,
+  //   },
+  //   {
+  //     text: "עקבו אחרינו בטיקטוק (Follow us on Tiktok)",
+  //     sid: "4",
+  //     count: social.tiktok,
+  //   },
+  // ];
+
   const items = [
     {
-      text: "שתפו את האתר שלנו עם חבר בוואטסאפ (Share our Website with a friend on Whatsapp)",
+      text: "שתפו את האתר שלנו עם חבר בוואטסאפ",
       sid: "1",
       count: social.twitter,
     },
     {
-      text: "עקבו אחרינו באינסטגרם (Follow us on Instagram)",
+      text: "עקבו אחרינו באינסטגרם",
       sid: "2",
       count: social.instagram,
     },
     {
-      text: "תנו לנו לייק בעמוד הפייסבוק (Like our Facebook page)",
+      text: "תנו לנו לייק בעמוד הפייסבוק",
       sid: "3",
       count: social.facebook,
     },
     {
-      text: "עקבו אחרינו בטיקטוק (Follow us on Tiktok)",
+      text: "עקבו אחרינו בטיקטוק",
       sid: "4",
       count: social.tiktok,
     },
@@ -103,7 +126,7 @@ const Listitem = ({ text, sid, count, click }) => {
   return (
     <li className="flex flex-row justify-between items-center py-4 first:pt-0 last:pb-0">
       <button
-        className="text-gray-700 focus:text-[#ff6600]"
+        className="text-gray-700 focus:text-[#ff6600] text-right"
         onClick={click}
         id={sid}
       >
